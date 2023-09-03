@@ -1,6 +1,8 @@
+import 'package:fast_app_base/common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../detail/s_product_detail.dart';
 import '../../fab/floating_small_provider.dart';
 
 class HomeFragment extends ConsumerStatefulWidget {
@@ -31,8 +33,20 @@ class _HomeFragmentState extends ConsumerState<HomeFragment> {
     return ListView(
       controller: scrollController,
       children: [
-        Container(height: 500, color: Colors.red),
-        Container(height: 500, color: Colors.blue),
+        Tap(
+            onTap: (){
+              ref.invalidate(detailDataProvider(1));
+              Nav.push(ProductDetailScreen(id: 1,));
+
+            },
+            child: Container(height: 500, color: Colors.red)),
+        Tap(
+            onTap: (){
+              ref.invalidate(detailDataProvider(2));
+              Nav.push(ProductDetailScreen(id: 2,));
+
+            },
+            child: Container(height: 500, color: Colors.blue)),
         Container(height: 500, color: Colors.red),
         Container(height: 500, color: Colors.blue),
         Container(height: 500, color: Colors.red),

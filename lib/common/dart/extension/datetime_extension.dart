@@ -7,5 +7,5 @@ extension DateTimeExtension on DateTime {
 
   String get formattedTime => DateFormat('HH:mm').format(this);
 
-  String get formattedDateTime => DateFormat('dd/MM/yyyy HH:mm').format(this);
+  String get formattedDateTime => DateFormat('dd/MM/yyyy HH:mm:ss').format(this);
 }
