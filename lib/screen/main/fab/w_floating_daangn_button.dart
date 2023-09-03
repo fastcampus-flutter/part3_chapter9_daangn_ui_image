@@ -36,26 +36,90 @@ class _FloatingDaangnButtonState extends ConsumerState<FloatingDaangnButton> {
             onTap: () {
               ref.read(floatingExpandedProvider.notifier).state = !isExpanded;
             },
-            child: AnimatedContainer(
-              height: 60,
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              duration: 100.ms,
-              decoration:
-                  BoxDecoration(color: Colors.orange, borderRadius: BorderRadius.circular(30)),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.add),
-                  AnimatedWidthCollapse(
-                    visible: !isSmall,
-                    duration: 100.ms,
-                    child: '글쓰기'.text.white.make(),
-                  )
-                ],
-              ),
-            ).pOnly(bottom: 80, right: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AnimatedOpacity(
+                  opacity: isExpanded ? 1 : 0,
+                  duration: 100.ms,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        width: 160,
+                        padding: const EdgeInsets.all(15),
+                        margin: const EdgeInsets.only(right: 15, bottom: 10),
+                        decoration: BoxDecoration(
+                            color: context.appColors.floatingActionLayer,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _floatItem('알바', '$basePath/fab/fab_01.png'),
+                            _floatItem('과외/클래스', '$basePath/fab/fab_02.png'),
+                            _floatItem('농수산물', '$basePath/fab/fab_03.png'),
+                            _floatItem('부동산', '$basePath/fab/fab_04.png'),
+                            _floatItem('중고차', '$basePath/fab/fab_05.png'),
+                          ],
+                        ),
+                      ),
+                      const Height(3),
+                      Container(
+                        width: 160,
+                        padding: const EdgeInsets.all(15),
+                        margin: const EdgeInsets.only(right: 15, bottom: 10),
+                        decoration: BoxDecoration(
+                            color: context.appColors.floatingActionLayer,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _floatItem('내 물건 팔기', '$basePath/fab/fab_06.png'),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                AnimatedContainer(
+                  height: 60,
+                  duration: 100.ms,
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  decoration: BoxDecoration(
+                      color: isExpanded ? context.appColors.floatingActionLayer : Colors.orange,
+                      borderRadius: BorderRadius.circular(30)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      AnimatedRotation(
+                          child: Icon(Icons.add), duration: 100.ms, turns: isExpanded ? 0.125 : 0),
+                      AnimatedWidthCollapse(
+                        visible: !isSmall,
+                        duration: 100.ms,
+                        child: '글쓰기'.text.white.make(),
+                      )
+                    ],
+                  ),
+                ).pOnly(bottom: 80, right: 15),
+              ],
+            ),
           ),
         )
+      ],
+    );
+  }
+
+  _floatItem(String title, String imagePath) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image.asset(
+          imagePath,
+          width: 30,
+        ),
+        const Width(8),
+        title.text.make(),
       ],
     );
   }
